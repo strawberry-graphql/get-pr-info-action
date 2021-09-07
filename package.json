@@ -1,5 +1,5 @@
 {
-  "name": "validate-tweet-action",
+  "name": "get-pr-info-action",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
