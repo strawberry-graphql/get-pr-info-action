@@ -8,13 +8,13 @@ const run = async () => {
     return core.setFailed("Missing ACCESS_TOKEN");
   }
 
-  let username = "";
+  let pullRequest = null;
 
   const { payload, sha, eventName } = github.context;
   const octokit = github.getOctokit(ACCESS_TOKEN);
 
   if (eventName === "pull_request" || eventName === "pull_request_target") {
-    username = github.context.payload.pull_request.user.login;
+    pullRequest = github.context.payload.pull_request;
   } else {
     const { repository } = payload;
 
@@ -30,16 +30,18 @@ const run = async () => {
       console.log("no pull request found for this commit");
       return;
     }
-
-    const contributor = pullRequest.user;
-    username = pullRequest.user.login;
   }
+
+  const contributor = pullRequest.user;
+  const username = pullRequest.user.login;
+
   const { data: author } = await octokit.rest.users.getByUsername({
     username,
   });
 
   const name = author.name || author.login;
 
+  core.setOutput("pr-number", pullRequest.number);
   core.setOutput("contributor-name", name);
   core.setOutput("contributor-username", author.login);
 };
