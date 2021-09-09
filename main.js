@@ -27,6 +27,8 @@ const run = async () => {
     });
 
     if (!pullRequest) {
+      core.setOutput("has-pr", false);
+
       console.log("no pull request found for this commit");
       return;
     }
@@ -41,6 +43,7 @@ const run = async () => {
 
   const name = author.name || author.login;
 
+  core.setOutput("has-pr", true);
   core.setOutput("pr-number", pullRequest.number);
   core.setOutput("repository-name", pullRequest.base.repo.name);
   core.setOutput("contributor-name", name);

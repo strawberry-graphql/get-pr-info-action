@@ -12,8 +12,11 @@ be able to get information about the PR and the contributor.
 
 ## Outputs
 
+- `has_pr`: Wether this commit has a PR associated with it or not
+- `pr_number`: The PR number
 - `contributor_name`: The name of the contributor, it falls back to the contributor's username if the name is not set.
 - `contributor_username`: The username of the contributor.
+- `repository-name` : The name of the base repository
 
 ## Example usage
 
