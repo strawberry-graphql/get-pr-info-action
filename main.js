@@ -26,11 +26,9 @@ const run = async () => {
       });
 
     const [pullRequest] = result.data;
-
-    console.log(pullRequest);
   }
 
-  if (!pullRequest) {
+  if (pullRequest === null) {
     core.setOutput("has-pr", false);
 
     console.log("no pull request found for this commit");
