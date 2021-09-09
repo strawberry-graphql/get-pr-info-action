@@ -18,13 +18,18 @@ const run = async () => {
   } else {
     const { repository } = payload;
 
+    const result =
+      await octokit.rest.repos.listPullRequestsAssociatedWithCommit({
+        owner: repository.owner.login,
+        repo: repository.name,
+        commit_sha: sha,
+      });
+
+    console.log(result);
+
     const {
       data: [pullRequest],
-    } = await octokit.rest.repos.listPullRequestsAssociatedWithCommit({
-      owner: repository.owner.login,
-      repo: repository.name,
-      commit_sha: sha,
-    });
+    } = result;
   }
 
   if (!pullRequest) {
