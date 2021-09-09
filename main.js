@@ -25,13 +25,13 @@ const run = async () => {
       repo: repository.name,
       commit_sha: sha,
     });
+  }
 
-    if (!pullRequest) {
-      core.setOutput("has-pr", false);
+  if (!pullRequest) {
+    core.setOutput("has-pr", false);
 
-      console.log("no pull request found for this commit");
-      return;
-    }
+    console.log("no pull request found for this commit");
+    return;
   }
 
   const contributor = pullRequest.user;
