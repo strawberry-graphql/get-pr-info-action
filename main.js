@@ -25,7 +25,8 @@ const run = async () => {
         commit_sha: sha,
       });
 
-    console.log(result);
+    console.log(result.data);
+    console.log(result.data && result.data.pullRequest);
 
     const {
       data: [pullRequest],
