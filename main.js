@@ -42,6 +42,7 @@ const run = async () => {
   const name = author.name || author.login;
 
   core.setOutput("pr-number", pullRequest.number);
+  core.setOutput("repository-name", pullRequest.repo.name);
   core.setOutput("contributor-name", name);
   core.setOutput("contributor-username", author.login);
 };
