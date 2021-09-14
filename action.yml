@@ -1,4 +1,29 @@
 name: "Get PR info Action"
+description: "Get information about a pull request either when the PR is merged or when it was sent"
+
+outputs:
+  pr-number:
+    description: "PR number"
+    value: ${{ steps.get-info.outputs.pr-number }}
+  has-pr:
+    description: "True if there's a PR for this commit"
+    value: ${{ steps.get-info.outputs.has-pr }}
+  contributor-name:
+    description: "Contributor name"
+    value: ${{ steps.get-info.outputs.contributor-name }}
+  contributor-username:
+    description: "Contributor username"
+    value: ${{ steps.get-info.outputs.contributor-username }}
+  repository-name:
+    description: "Repository name"
+    value: ${{ steps.get-info.outputs.repository-name }}
+
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: "composite"
+  steps:
+    - uses: actions/github-script@v4
+      id: get-info
+      with:
+        script: |
+          const script = require('${{ github.action_path }}/main.js')
+          await script({github, context, core})
