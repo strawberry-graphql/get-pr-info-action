@@ -1,29 +1,18 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
-
-const run = async () => {
-  const { ACCESS_TOKEN } = process.env;
-
-  if (!ACCESS_TOKEN) {
-    return core.setFailed("Missing ACCESS_TOKEN");
-  }
-
+module.exports = async ({ github, context, core }) => {
   let pullRequest = null;
 
-  const { payload, sha, eventName } = github.context;
-  const octokit = github.getOctokit(ACCESS_TOKEN);
+  const { payload, sha, eventName } = context;
 
   if (eventName === "pull_request" || eventName === "pull_request_target") {
-    pullRequest = github.context.payload.pull_request;
+    pullRequest = context.payload.pull_request;
   } else {
     const { repository } = payload;
 
-    const result =
-      await octokit.rest.repos.listPullRequestsAssociatedWithCommit({
-        owner: repository.owner.login,
-        repo: repository.name,
-        commit_sha: sha,
-      });
+    const result = await github.repos.listPullRequestsAssociatedWithCommit({
+      owner: repository.owner.login,
+      repo: repository.name,
+      commit_sha: sha,
+    });
 
     [pullRequest] = result.data;
   }
@@ -38,9 +27,11 @@ const run = async () => {
   const contributor = pullRequest.user;
   const username = pullRequest.user.login;
 
-  const { data: author } = await octokit.rest.users.getByUsername({
+  const { data: author } = await github.users.getByUsername({
     username,
   });
+
+  console.log("pull request found, setting outputs");
 
   const name = author.name || author.login;
 
@@ -50,5 +41,3 @@ const run = async () => {
   core.setOutput("contributor-name", name);
   core.setOutput("contributor-username", author.login);
 };
-
-run();

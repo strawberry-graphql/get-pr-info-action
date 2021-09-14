@@ -10,11 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
-        id: info
+        id: pr-info
       - name: Print info
         run: |
-          echo "Has PR: ${steps.info.outputs.has-pr}"
-          echo "PR: ${steps.info.outputs.pr-number}"
-          echo "Contributor name: ${steps.info.outputs.contributor-name}"
-          echo "Contributor username: ${steps.info.outputs.contributor-username}"
-          echo "Repository name: ${steps.info.outputs.repository-name}"
+          echo "Has PR: ${{ steps.pr-info.outputs.has-pr }}"
+          echo "PR: ${{ steps.pr-info.outputs.pr-number }}"
+          echo "Contributor name: ${{ steps.pr-info.outputs.contributor-name }}"
+          echo "Contributor username: ${{ steps.pr-info.outputs.contributor-username }}"
+          echo "Repository name: ${{ steps.pr-info.outputs.repository-name }}"
