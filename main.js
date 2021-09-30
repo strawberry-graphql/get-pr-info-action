@@ -17,7 +17,7 @@ module.exports = async ({ github, context, core }) => {
     [pullRequest] = result.data;
   }
 
-  if (pullRequest === null) {
+  if (!pullRequest) {
     core.setOutput("has-pr", false);
 
     console.log("no pull request found for this commit");
