@@ -17,4 +17,5 @@ jobs:
           echo "PR: ${{ steps.pr-info.outputs.pr-number }}"
           echo "Contributor name: ${{ steps.pr-info.outputs.contributor-name }}"
           echo "Contributor username: ${{ steps.pr-info.outputs.contributor-username }}"
+          echo "Contributor twitter username: ${{ steps.pr-info.outputs.contributor-twitter-username }}"
           echo "Repository name: ${{ steps.pr-info.outputs.repository-name }}"
