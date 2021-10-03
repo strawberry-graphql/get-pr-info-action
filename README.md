@@ -16,6 +16,7 @@ be able to get information about the PR and the contributor.
 - `pr-number`: The PR number
 - `contributor-name`: The name of the contributor, it falls back to the contributor's username if the name is not set.
 - `contributor-username`: The username of the contributor.
+- `contributor-twitter-username`: The twitter username of the contributor.
 - `repository-name` : The name of the base repository
 
 ## Example usage
@@ -34,6 +35,7 @@ jobs:
     outputs:
       contributor-name: ${{ steps.get-info.outputs.contributor-name }}
       contributor-username: ${{ steps.get-info.outputs.contributor-username }}
+      contributor-twitter-username: ${{ steps.get-info.outputs.contributor-twitter-username }}
 
     steps:
       - uses: actions/checkout@v2

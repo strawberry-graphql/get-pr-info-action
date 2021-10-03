@@ -40,4 +40,5 @@ module.exports = async ({ github, context, core }) => {
   core.setOutput("repository-name", pullRequest.base.repo.name);
   core.setOutput("contributor-name", name);
   core.setOutput("contributor-username", author.login);
+  core.setOutput("contributor-twitter-username", author.twitter_username);
 };
