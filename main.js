@@ -34,11 +34,12 @@ module.exports = async ({ github, context, core }) => {
   console.log("pull request found, setting outputs");
 
   const name = author.name || author.login;
+  const twitter_username = author.twitter_username || "";
 
   core.setOutput("has-pr", true);
   core.setOutput("pr-number", pullRequest.number);
   core.setOutput("repository-name", pullRequest.base.repo.name);
   core.setOutput("contributor-name", name);
   core.setOutput("contributor-username", author.login);
-  core.setOutput("contributor-twitter-username", author.twitter_username);
+  core.setOutput("contributor-twitter-username", twitter_username);
 };
